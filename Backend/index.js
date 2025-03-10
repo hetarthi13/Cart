@@ -15,7 +15,8 @@ app.use(bodyParser.json());
 
 
 const PORT = process.env.PORT || 4000;
-const MongoDBUrl = "mongodb+srv://hetarthimetizsoft:admin@jwt.dtcvr.mongodb.net/";
+const MongoDBUrl = "mongodb+srv://admin:admin@cluster0.ftpyu.mongodb.net/"
+// "mongodb+srv://hetarthimetizsoft:admin@jwt.dtcvr.mongodb.net/";
 // mongodb+srv://admin:admin@cluster0.ftpyu.mongodb.net/CrudApp?retryWrites=true&w=majority&appName=Cluster0
 
 mongoose.connect(MongoDBUrl).then(() => {
@@ -27,5 +28,6 @@ mongoose.connect(MongoDBUrl).then(() => {
     console.log(err);
 })
 
+app.use("/uploads", express.static("uploads"));
 // app.use('/api', require('./routes/UserRoute'))
 app.use('/api',router)  

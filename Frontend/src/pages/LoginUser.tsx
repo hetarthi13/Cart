@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../redux/userReducer/UserReducer'
+import { AppDispatch } from '../redux/store'
 
 function LoginUser() {
   const [loginData, setLoginData] = React.useState({
@@ -11,7 +12,7 @@ function LoginUser() {
   const {users} = useSelector((state : any) => state)
   console.log(users.user.token);
   localStorage.setItem("token", users.user.token)
-const dispatch = useDispatch()
+const dispatch = useDispatch<AppDispatch>()
   const handleSumitData = (e :any) => {
     e.preventDefault()
     dispatch(loginUser(loginData))
