@@ -87,6 +87,7 @@ label{
 
 input{
  padding: 5px;
+ background-color: aqua;
 }
 .header{
   width: 100%;
@@ -98,4 +99,37 @@ input{
   width: 100%;
  display: flex;
  justify-content: center;
+}
+
+.productMainAll{
+  width: 100%;
+ display: flex;
+ justify-content: space-between;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: rgb(175, 84, 84);
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+table {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid white;
+  padding: 8px;
 }
