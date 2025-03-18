@@ -148,6 +148,28 @@ export const GetProductData = createAsyncThunk(
   }
 );
 
+export const getProductById = createAsyncThunk(
+  "product/getById",
+  async (productId: string, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/getProductById/${productId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        return rejectWithValue(errorResponse);
+      }      
+
+      return response.json();  
+    } catch (error) {
+      return rejectWithValue("Failed to fetch product");
+    }
+  }
+);
 // Add Product
 // export const AddProductData = createAsyncThunk(
 //   "product/add",
@@ -291,8 +313,19 @@ const productSlice = createSlice({
       .addCase(AddProductData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(getProductById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getProductById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.product = action.payload;
+      })
+      .addCase(getProductById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
-  },
+    },
 });
 
 export default productSlice.reducer;

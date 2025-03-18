@@ -1,6 +1,6 @@
 import express from "express";
 import { registerUser, loginUser, getUsers } from "../controller/UserController.js";
-import { AddProduct, DeleteProduct, EditProduct, getProducts, uploadProductImages } from "../controller/ProductController.js";
+import { AddProduct, DeleteProduct, EditProduct, getProductById, getProducts, uploadProductImages } from "../controller/ProductController.js";
 import multer from "multer";
 
 const router = express.Router();
@@ -22,5 +22,6 @@ router.get("/getProducts", getProducts)
 router.put("/editProduct/:id", EditProduct)
 router.post("/addProduct",uploadProductImages, AddProduct)
 router.delete("/deleteProduct/:id", DeleteProduct)
+router.get("/getProductById/:id", getProductById)
 
 export default router;

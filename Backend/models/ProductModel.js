@@ -28,6 +28,10 @@ const ProductSchema = new mongoose.Schema({
     multiImages: {
         type: Array,
         required: false
+    },
+    quantity: {
+        type: Number,
+        required: false
     }
 })
     

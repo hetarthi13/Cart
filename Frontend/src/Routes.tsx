@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import LoginUser from './pages/LoginUser'
 import UserDashboard from './pages/UserDashboard'
+import UserProductPreview from './component/User/UserProductPreview'
 // import Register from './pages/Register'
 
 function Routes() {
@@ -24,6 +25,10 @@ function Routes() {
     {
         path : "/userpage",
         element: <UserDashboard />
+    },
+    {
+      path:"/userProductPreview/:id",
+      element:<UserProductPreview />
     }
   ])
   return (

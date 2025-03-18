@@ -19,7 +19,7 @@ const dispach = useDispatch()
   <div className="card-body">
     <h5 className="card-title">{item.name}</h5>
     <p className="card-text">{item.price}</p>
-    <a href="#" className="btn btn-primary">Go somewhere</a>
+    <button className="btn btn-primary" onClick={() => window.location.href = `/userProductPreview/${item._id}`}>Show Product</button>
   </div>
 </div>})}</div>
   </>

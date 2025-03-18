@@ -46,6 +46,7 @@ export const loginUser = async (req, res) => {
         console.log(user,"user");
         
         // if (!user) {
+        
         //     return res.status(404).json({ message: "User not found" });
         // }    
         console.log(user.password,"user.password");
@@ -63,6 +64,7 @@ export const loginUser = async (req, res) => {
             token,
             role : user.role,
             isAdmin : user.isAdmin
+            
         });
     } catch (error) {
         res.status(500).json({ message: error.message });

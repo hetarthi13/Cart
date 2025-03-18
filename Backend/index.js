@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import router from "./routes/UserRoute.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import "./cron-job.js";
 
 const app = express();
 app.use(cors());
