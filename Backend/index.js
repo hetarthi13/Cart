@@ -1,17 +1,17 @@
-// const express = require("express");
 import express from "express";
 import bodyParser from "body-parser";
-// const bodyParser = require("body-parser");
-// const dotenv = require("dotenv");
 import cors from 'cors';
-// const cors = require("cors");
-// const mongoose = require("mongoose");
 import mongoose from "mongoose";
 import router from "./routes/UserRoute.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+app.use(express.urlencoded({ extended: true })); // ✅ Allows parsing of FormData
+app.use(express.json()); 
 
 
 const PORT = process.env.PORT || 4000;
@@ -28,6 +28,9 @@ mongoose.connect(MongoDBUrl).then(() => {
     console.log(err);
 })
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static("uploads"));
-// app.use('/api', require('./routes/UserRoute'))
+
 app.use('/api',router)  
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));

@@ -1,6 +1,7 @@
 import express from "express";
 import { registerUser, loginUser, getUsers } from "../controller/UserController.js";
-import { AddProduct, DeleteProduct, EditProduct, getProducts } from "../controller/ProductController.js";
+import { AddProduct, DeleteProduct, EditProduct, getProducts, uploadProductImages } from "../controller/ProductController.js";
+import multer from "multer";
 
 const router = express.Router();
 const storage = multer.diskStorage({
@@ -19,7 +20,7 @@ router.post("/login", loginUser);
 router.get("/users", getUsers);
 router.get("/getProducts", getProducts)
 router.put("/editProduct/:id", EditProduct)
-router.post("/addProduct",upload.single("image"), AddProduct)
+router.post("/addProduct",uploadProductImages, AddProduct)
 router.delete("/deleteProduct/:id", DeleteProduct)
 
 export default router;

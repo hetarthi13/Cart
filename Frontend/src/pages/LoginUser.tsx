@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../redux/userReducer/UserReducer'
 import { AppDispatch } from '../redux/store'
@@ -8,15 +8,30 @@ function LoginUser() {
     email: "",
     password: ""
   })
+    // const {users} = useSelector((state : any) => state)
+    // console.log(users,"users data");
 
-  const {users} = useSelector((state : any) => state)
-  console.log(users.user.token);
-  localStorage.setItem("token", users.user.token)
+//   useEffect(() => {
+//     // const token = localStorage.getItem("token")
+//     // if(token){
+//     //   window.location.href = "/Home"
+//     // }
+//     const {users} = useSelector((state : any) => state)
+//     console.log(users,"users data");
+//     if(users){
+//   // localStorage.setItem("token", users.users.token)
+// }
+//   },[loginData])
+    
 const dispatch = useDispatch<AppDispatch>()
   const handleSumitData = (e :any) => {
     e.preventDefault()
     dispatch(loginUser(loginData))
-window.location.href = "/"
+//     const {users} = useSelector((state : any) => state.users)
+//     console.log(users,"users data");
+    
+// if(users){
+// window.location.href = "/Home"
   }
   return (<>
   <div>

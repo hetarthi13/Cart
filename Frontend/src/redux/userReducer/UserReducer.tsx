@@ -121,7 +121,8 @@ export const loginUser = createAsyncThunk(
         },
         body: JSON.stringify({ email, password }),
       });
-
+// console.log(response,"response login");
+// return null
       if (!response.ok) {
         const errorResponse = await response.json();
         return rejectWithValue(errorResponse.message || "Login failed");
@@ -129,6 +130,15 @@ export const loginUser = createAsyncThunk(
 
       const data = await response.json();
       console.log(data,"data");
+      localStorage.setItem("token", data.token);
+      console.log(data.role,"data.role");
+      
+      if(data.role === "admin"){
+        window.location.href = "/Home"
+      }else{
+        window.location.href = "/userpage"
+      }
+      localStorage.setItem("role", data.role);
       
       return data;
     } catch (error) {

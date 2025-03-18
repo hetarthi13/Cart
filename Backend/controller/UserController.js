@@ -13,7 +13,7 @@ export const getUsers = async (req, res) => {
 
 export const registerUser = async (req, res) => {
     try {
-        const {email,name,password} = req.body
+        const {email,name,password,role,isAdmin} = req.body
         if(!email,!name,!password){
             return res.status(400).json({message:"All fields are required"})
         }
@@ -25,6 +25,10 @@ export const registerUser = async (req, res) => {
 
         const hashedPassword = await hashPassword(password);
         req.body.password = hashedPassword;
+        console.log(req.body);
+        req.body.role = role ?? "User";
+        req.body.isAdmin = isAdmin ?? false;
+        
         const user = await User.create(req.body);
 
         res.status(200).json(user);
@@ -35,15 +39,17 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
     try {
+        console.log(req.body,"req.body");
         const { email, password } = req.body;
         console.log(email,"email" );
-        
         const user = await User.findOne({ email });
         console.log(user,"user");
         
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
+        // if (!user) {
+        //     return res.status(404).json({ message: "User not found" });
+        // }    
+        console.log(user.password,"user.password");
+        
         const isMatch = await comparePassword(password, user.password);
         if (!isMatch) {
             return res.status(401).json({ message: "Invalid credentials" });
@@ -55,6 +61,8 @@ export const loginUser = async (req, res) => {
             name: user.name,
             email: user.email,
             token,
+            role : user.role,
+            isAdmin : user.isAdmin
         });
     } catch (error) {
         res.status(500).json({ message: error.message });

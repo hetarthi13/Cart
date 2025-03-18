@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -11,7 +11,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
 
 a {
   font-weight: 500;
@@ -46,6 +46,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
   margin: 10px;
+  color: white;
 }
 button:hover {
   border-color: #646cff;
@@ -105,6 +106,8 @@ input{
   width: 100%;
  display: flex;
  justify-content: space-between;
+ margin: 10px 0; 
+ /* height: 75px; */
 }
 
 .modal {
@@ -122,7 +125,7 @@ input{
   background: rgb(175, 84, 84);
   padding: 20px;
   border-radius: 8px;
-  width: 300px;
+  width: 330px;
 }
 
 table {
