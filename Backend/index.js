@@ -20,6 +20,11 @@ const MongoDBUrl = "mongodb+srv://admin:admin@cluster0.ftpyu.mongodb.net/"
 // "mongodb+srv://hetarthimetizsoft:admin@jwt.dtcvr.mongodb.net/";
 // mongodb+srv://admin:admin@cluster0.ftpyu.mongodb.net/CrudApp?retryWrites=true&w=majority&appName=Cluster0
 
+app.get("/stop-cron", (req, res) => {
+    task.stop();
+    res.send("Cron job has been stopped!");
+});
+
 mongoose.connect(MongoDBUrl).then(() => {
     app.listen(PORT, () => {
         console.log("SERVER connected");

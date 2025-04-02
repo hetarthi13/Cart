@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { registerUser } from '../redux/userReducer/UserReducer'
+import { Link } from 'react-router-dom'
 
 function Register() {
 
@@ -48,6 +49,7 @@ function Register() {
             </button>
         </div>
     </form>
+    <Link to="/"><p>If you have an account please login</p></Link>
     </>
   )
 }

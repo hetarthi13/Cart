@@ -284,7 +284,56 @@ export const AddProductData = createAsyncThunk(
   }
 );
 
+export const AddToCartProduct = createAsyncThunk(
+  "product/addToCart",
+  async (productId: string, { rejectWithValue }) => {
+    console.log(productId,"productId"); 
+    const customerId = localStorage.getItem("userId")
+    console.log(customerId,"customerId");
+    
+    try {
+      const response = await fetch(`http://localhost:4000/api/addToCart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId,customerId : "67e1027a11dd0c091022949a"  }),
+      });
 
+      if (!response.ok) {       
+        const errorResponse = await response.json();
+        return rejectWithValue(errorResponse);
+      }
+
+
+      window.location.href = "/cart"
+      return response.json();
+    } catch (error) {
+      return rejectWithValue("Failed to add to cart");
+  }}
+)
+
+export const removeFromCart = createAsyncThunk(
+  "product/removeFromCart",
+  async (productId: string, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/removeFromCart/${productId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },       
+      });
+
+      if (!response.ok) {       
+        const errorResponse = await response.json();
+        return rejectWithValue(errorResponse);
+      }
+      return response.json(); 
+    } catch (error) {
+      return rejectWithValue("Failed to remove from cart"); 
+    }
+  }
+)
 // Product Slice
 const productSlice = createSlice({
   name: "product",
@@ -322,6 +371,28 @@ const productSlice = createSlice({
         state.product = action.payload;
       })
       .addCase(getProductById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(AddToCartProduct.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(AddToCartProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.product = action.payload;
+      })
+      .addCase(AddToCartProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(removeFromCart.pending, (state) => {
+        state.loading = true;     
+      })
+      .addCase(removeFromCart.fulfilled, (state, action) => {
+        state.loading = false;
+        state.product = action.payload;
+      })
+      .addCase(removeFromCart.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

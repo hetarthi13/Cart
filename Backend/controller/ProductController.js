@@ -16,6 +16,7 @@ import fs from "fs";
 
 export const getProducts = async (req, res) => {
     try {
+
         const products = await Product.find();
 
         const updatedProducts = products.map((product) => ({
@@ -60,7 +61,7 @@ export const EditProduct = async (req,res)=> {
         console.log(error);
         
     }
-}
+}  
 
 export const DeleteProduct = async (req,res)=> {
     try{

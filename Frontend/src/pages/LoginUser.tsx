@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../redux/userReducer/UserReducer'
 import { AppDispatch } from '../redux/store'
+import { Link } from 'react-router-dom'
 
 function LoginUser() {
   const [loginData, setLoginData] = React.useState({
@@ -54,6 +55,8 @@ const dispatch = useDispatch<AppDispatch>()
       </div>
       <button type='submit'>Login </button>
     </form>
+    <Link to="/register">
+    <p>If you are not registered then please register</p></Link>
   </div>
   </>
   )

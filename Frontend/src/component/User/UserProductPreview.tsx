@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getProductById } from '../../redux/productReducer/ProductReducer';
+import { AddToCartProduct, getProductById } from '../../redux/productReducer/ProductReducer';
 import UserHeader from './UserHeader';
 
 function UserProductPreview() {
@@ -16,6 +16,20 @@ const dispach = useDispatch()
 dispach(getProductById(id))
   }, [id])
   
+  const AddToCart = () => {
+    if(product){
+      console.log(product,"product cart");
+      const UserData = localStorage.getItem("userId")
+      console.log(  UserData,"UserData")
+      
+      // const addToCartData = {
+      //   productId : product._id,
+      //   customerId : UserData
+      // }
+      dispach(AddToCartProduct(product._id))
+    }
+    // dispach()
+  }
   return (<>
   <UserHeader />
   <div style={{display:"flex", justifyContent:"space-between",width:"800px",margin:" auto"}}>
@@ -23,7 +37,7 @@ dispach(getProductById(id))
   <div>
     <h1>{product?.name ?? ""}</h1>
     <h6>{product?.price ?? ""}</h6>
-    <button className='btn btn-primary'>Add to Cart</button>
+    <button className='btn btn-primary' onClick={AddToCart}>Add to Cart</button>
   </div>
   </div>
   </>

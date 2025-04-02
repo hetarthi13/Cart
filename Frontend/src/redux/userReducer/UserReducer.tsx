@@ -129,11 +129,12 @@ export const loginUser = createAsyncThunk(
       }
 
       const data = await response.json();
-      console.log(data,"data");
+      localStorage.setItem("userId",data._id)
+      // console.log(data,"data");
       localStorage.setItem("token", data.token);
       console.log(data.role,"data.role");
       
-      if(data.role === "admin"){
+      if(data.role === "Admin"){
         window.location.href = "/Home"
       }else{
         window.location.href = "/userpage"
@@ -163,6 +164,7 @@ export const registerUser = createAsyncThunk(
         const errorResponse = await response.json();
         return rejectWithValue(errorResponse);
       }
+      window.location.href = "/"
 
       const data = await response.json();
       return data; 

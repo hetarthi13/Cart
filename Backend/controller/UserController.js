@@ -45,10 +45,10 @@ export const loginUser = async (req, res) => {
         const user = await User.findOne({ email });
         console.log(user,"user");
         
-        // if (!user) {
+        if (!user) {
         
-        //     return res.status(404).json({ message: "User not found" });
-        // }    
+            return res.status(404).json({ message: "User not found" });
+        }    
         console.log(user.password,"user.password");
         
         const isMatch = await comparePassword(password, user.password);
