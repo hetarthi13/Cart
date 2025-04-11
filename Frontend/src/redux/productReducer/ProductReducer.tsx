@@ -170,66 +170,7 @@ export const getProductById = createAsyncThunk(
     }
   }
 );
-// Add Product
-// export const AddProductData = createAsyncThunk(
-//   "product/add",
-//   async (
-//     {
-//       name,
-//       image,
-//       price,
-//       category,
-//       description,
-//       rating,
-//       multiImages,
-//     }: Omit<Product, "_id">,
-//     { rejectWithValue }
-//   ) => {
-//     try {
-//       const formData = new FormData();
-//       formData.append("name", name);
-//       formData.append("price", price);
-//       formData.append("category", category);
-//       formData.append("description", description);
-//       formData.append("rating", rating.toString());
 
-//       // Append single image
-//       if (image instanceof File) {
-//         formData.append("image", image);
-//       }
-
-//       // Append multiple images
-//       if (multiImages && multiImages.length > 0) {
-//         multiImages.forEach((img) => {
-//           formData.append(`multiImages`, img);
-//         });
-//       }
-
-//       // 🔥 Debugging: Log `FormData` contents properly
-//       console.log(" FormData content before sending:");
-//       for (let [key, value] of formData.entries()) {
-//         console.log(`${key}:`, value);
-//       }
-
-//       const response = await fetch("http://localhost:4000/api/addProduct", {
-//         method: "POST",
-//         body: formData, // Don't set Content-Type manually for FormData
-//       });
-
-//       if (!response.ok) {
-//         const errorResponse = await response.json();
-//         return rejectWithValue(errorResponse);
-//       }
-
-//       return response.json();
-//     } catch (error) {
-//       return rejectWithValue("Failed to add product");
-//     }
-//   }
-// );
-
-
-// Add Product
 export const AddProductData = createAsyncThunk(
   "product/add",
   async (
@@ -254,14 +195,6 @@ export const AddProductData = createAsyncThunk(
         formData.append("image", image);
       }
 
-      // Append multiple images correctly
-      // if (multiImages && multiImages.length > 0) {
-      //   multiImages.forEach((img, index) => {
-      //     formData.append(`multiImages[${index}]`, img);
-      //   });
-      // }
-
-      // Debugging: Log FormData content
       console.log("📦 FormData content before sending:");
       for (let [key, value] of formData.entries()) {
         console.log(`${key}:`, value);
@@ -284,57 +217,7 @@ export const AddProductData = createAsyncThunk(
   }
 );
 
-export const AddToCartProduct = createAsyncThunk(
-  "product/addToCart",
-  async (productId: string, { rejectWithValue }) => {
-    console.log(productId,"productId"); 
-    const customerId = localStorage.getItem("userId")
-    console.log(customerId,"customerId");
-    
-    try {
-      const response = await fetch(`http://localhost:4000/api/addToCart`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ productId,customerId : "67e1027a11dd0c091022949a"  }),
-      });
 
-      if (!response.ok) {       
-        const errorResponse = await response.json();
-        return rejectWithValue(errorResponse);
-      }
-
-
-      window.location.href = "/cart"
-      return response.json();
-    } catch (error) {
-      return rejectWithValue("Failed to add to cart");
-  }}
-)
-
-export const removeFromCart = createAsyncThunk(
-  "product/removeFromCart",
-  async (productId: string, { rejectWithValue }) => {
-    try {
-      const response = await fetch(`http://localhost:4000/api/removeFromCart/${productId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },       
-      });
-
-      if (!response.ok) {       
-        const errorResponse = await response.json();
-        return rejectWithValue(errorResponse);
-      }
-      return response.json(); 
-    } catch (error) {
-      return rejectWithValue("Failed to remove from cart"); 
-    }
-  }
-)
-// Product Slice
 const productSlice = createSlice({
   name: "product",
   initialState,
@@ -374,28 +257,7 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-      .addCase(AddToCartProduct.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(AddToCartProduct.fulfilled, (state, action) => {
-        state.loading = false;
-        state.product = action.payload;
-      })
-      .addCase(AddToCartProduct.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      })
-      .addCase(removeFromCart.pending, (state) => {
-        state.loading = true;     
-      })
-      .addCase(removeFromCart.fulfilled, (state, action) => {
-        state.loading = false;
-        state.product = action.payload;
-      })
-      .addCase(removeFromCart.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      });
+      
     },
 });
 

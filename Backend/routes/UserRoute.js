@@ -2,7 +2,7 @@ import express from "express";
 import { registerUser, loginUser, getUsers } from "../controller/UserController.js";
 import { AddProduct, DeleteProduct, EditProduct, getProductById, getProducts, uploadProductImages } from "../controller/ProductController.js";
 import multer from "multer";
-import { AddToCart, RemoveFromCart } from "../controller/CartController.js";
+import { AddToCart, GetCartItems, RemoveFromCart } from "../controller/CartController.js";
 
 const router = express.Router();
 const storage = multer.diskStorage({
@@ -26,5 +26,6 @@ router.delete("/deleteProduct/:id", DeleteProduct)
 router.get("/getProductById/:id", getProductById)
 router.post("/addToCart", AddToCart)
 router.post("/removeFromCart", RemoveFromCart)
+router.get("/getCart", GetCartItems)
 
 export default router;

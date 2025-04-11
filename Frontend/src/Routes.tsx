@@ -6,6 +6,7 @@ import LoginUser from './pages/LoginUser'
 import UserDashboard from './pages/UserDashboard'
 import UserProductPreview from './component/User/UserProductPreview'
 import UserCart from './component/User/UserCart'
+import Checkout from './pages/Checkout'
 // import Register from './pages/Register'
 
 function Routes() {
@@ -34,6 +35,10 @@ function Routes() {
     {
       path:"/cart",
       element:<UserCart />
+    },
+    {
+      path:"checkout",
+      element:<Checkout />
     }
   ])
   return (
