@@ -132,9 +132,41 @@ console.log(cartItem, "cartItem");
 export const GetCartItems = async (req, res) => {
     try {
         const cartItems = await Cart.find();
- console.log(cartItems,"cartItems");
- 
+        console.log(cartItems,"cartItems");
         res.status(200).json(cartItems);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message });
+    }
+}
+
+export const paymentStripe = async (req, res) => {
+    try {
+        const { token, amount } = req.body;
+        const customer = await stripe.customers.create({
+            email: token.email,
+            source: token.id
+        });
+        const idempotencyKey = uuid();
+        const charge = await stripe.charges.create({
+            amount: amount,
+            currency: "usd",
+            customer: customer.id,
+            receipt_email: token.email,
+            description: "Payment",            
+            // shipping: {
+            //     name: token.card.name,
+            //     address: {
+            //         line1: token.card.address_line1,
+            //         line2: token.card.address_line2,
+            //         city: token.card.address_city,
+            //         country: token.card.address_country,
+            //         postal_code: token.card.address_zip
+            //     }
+            // }
+        }, { idempotencyKey });
+        console.log("Charge:", charge);
+        res.status(200).json(charge);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: error.message });

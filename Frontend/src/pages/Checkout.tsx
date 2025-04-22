@@ -1,7 +1,12 @@
 import React from 'react'
 
 function Checkout() {
-  return (<>
+const placeOrder = () => {
+    alert("Order Placed Successfully")
+    
+}
+
+return (<>
    <div className="container mt-5">
       <h2 className="mb-4">Checkout</h2>
       <div className="row">
@@ -66,7 +71,7 @@ function Checkout() {
             </li>
           </ul>
 
-          <button className="btn btn-primary w-100">Place Order</button>
+          <button className="btn btn-primary w-100" onClick={placeOrder()}>Place Order</button>
         </div>
       </div>
     </div>
