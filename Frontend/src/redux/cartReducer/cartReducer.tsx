@@ -8,7 +8,7 @@ interface Product {
 }
 
 interface  CartState{
-    cart: Product | null;
+  cart: Product | null;
   loading: boolean;
   error: string | null;
 }
@@ -19,8 +19,6 @@ const initialState: CartState = {
   error: null,
 };
 
-
-  
   export const AddToCartProduct = createAsyncThunk(
     "cart/addToCart",
     async (productId: string, { rejectWithValue }) => {

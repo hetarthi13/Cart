@@ -130,8 +130,9 @@ export const loginUser = createAsyncThunk(
 
       const data = await response.json();
       localStorage.setItem("userId",data._id)
-      // console.log(data,"data");
+      console.log(data,"data");
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userName", data.name);
       console.log(data.role,"data.role");
       
       if(data.role === "Admin"){

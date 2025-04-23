@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "sk_test_51Mwx4BLxkNzjI6Ko8Q5jZBrZ4iM0vEjmZ9aYd7v2kXqVXt3ycF5OEFQ7cWzJrTKvLOyMZzEoeW7TzzCQQ7pLm2CZ00ILWRRpG1");
-
+console.log("STRIPE_SECRET_KEY:", process.env.STRIPE_SECRET_KEY);
 export const createOrder = async (req, res) => {
 
   console.log(req.body,"req.body");

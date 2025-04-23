@@ -1,16 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import Header from '../component/Header'
+import { useDispatch, useSelector } from 'react-redux'
+import { createOrder } from '../redux/paymentReducer/PaymentReducer'
+import { GetCartItems } from '../redux/cartReducer/cartReducer'
 
 function Checkout() {
+  const getcartData = useSelector(state => state.cart.cart)
+  console.log(getcartData,"getcartData at checkout");
+
+const userId = localStorage.getItem("userId")
+console.log(userId,"userId"); 
+
+const findUseridWiseData =getcartData && getcartData.filter((item : any) => item.userId === userId)
+console.log(findUseridWiseData,"finduseridEsde");
+  
+  const dispatch = useDispatch()
 const placeOrder = () => {
-    alert("Order Placed Successfully")
-    
+  window.location.href = "/userpage"
+    dispatch(createOrder(findUseridWiseData))
 }
+useEffect(() =>{
+dispatch(GetCartItems())
+},[dispatch])
+
 
 return (<>
    <div className="container mt-5">
+    <Header />
       <h2 className="mb-4">Checkout</h2>
       <div className="row">
-        {/* Billing Information */}
         <div className="col-md-6">
           <h4>Billing Details</h4>
           <form>
@@ -37,7 +55,6 @@ return (<>
           </form>
         </div>
 
-        {/* Payment and Order Summary */}
         <div className="col-md-6">
           <h4>Payment</h4>
           <form>
@@ -71,7 +88,7 @@ return (<>
             </li>
           </ul>
 
-          <button className="btn btn-primary w-100" onClick={placeOrder()}>Place Order</button>
+          <button className="btn btn-primary w-100" onClick={placeOrder}>Place Order</button>
         </div>
       </div>
     </div>
